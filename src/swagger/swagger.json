@@ -1,0 +1,180 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Todo API",
+      "version": "1.0.0",
+      "description": "API documentation for the Todo application"
+    },
+    "paths": {
+      "/todos": {
+        "get": {
+          "summary": "Retrieve a list of todos",
+          "responses": {
+            "200": {
+              "description": "A list of todos",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Todo"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "summary": "Create a new todo",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewTodo"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Todo created successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Todo"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/todos/{id}": {
+        "get": {
+          "summary": "Retrieve a specific todo by ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "A single todo",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Todo"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Todo not found"
+            }
+          }
+        },
+        "put": {
+          "summary": "Update a todo by ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewTodo"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Todo updated successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Todo"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Todo not found"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete a todo by ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Todo deleted successfully"
+            },
+            "404": {
+              "description": "Todo not found"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "Todo": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "example": "1"
+            },
+            "text": {
+              "type": "string",
+              "example": "Learn Next.js"
+            },
+            "completed": {
+              "type": "boolean",
+              "example": false
+            }
+          }
+        },
+        "NewTodo": {
+          "type": "object",
+          "properties": {
+            "text": {
+              "type": "string",
+              "example": "Build a Todo App"
+            },
+            "completed": {
+              "type": "boolean",
+              "example": false
+            }
+          },
+          "required": ["text"]
+        }
+      }
+    }
+  }
+  
