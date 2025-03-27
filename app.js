@@ -8,6 +8,7 @@ const swaggerUi = require('swagger-ui-express');
 const specs = require('./src/swagger/swagger')
 
 const cors = require('cors');
+app.use(cors()); // Allow frontend URL
 
 app.use(bodyParser.json());
 
@@ -21,7 +22,7 @@ app.use(express.json());
 app.use('/', todoRoutes);
 
 //cors for frontend api calls
-app.use(cors({ origin: 'http://localhost:3000', credentials: true })); // Allow frontend URL
+// app.use(cors({ origin: 'http://localhost:3000', credentials: true })); // Allow frontend URL
 
 
 // Swagger route
